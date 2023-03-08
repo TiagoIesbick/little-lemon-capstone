@@ -1,8 +1,11 @@
+import logo from '../assets/images/logo_green.png';
 import Nav from "./Nav";
+
 
 export default function Footer() {
     return (
         <footer>
+            <img src={logo} alt="logo" />
             <div>
                 Doormat Navigation
                 <Nav />
