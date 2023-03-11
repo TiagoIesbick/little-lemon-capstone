@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { useState } from 'react';
 
 export default function Nav() {
+    const [ icon, setIcon ] = useState(solid('bars'));
 
     const clickHandler = (e) => {
         e.preventDefault();
@@ -10,12 +12,17 @@ export default function Nav() {
             x.className = "responsive";
         } else {
             x.removeAttribute("class");
-        }
+        };
+        if (icon === solid('bars')) {
+            setIcon(solid('xmark'));
+        } else {
+            setIcon(solid('bars'));
+        };
     };
 
     return (
         <nav>
-            <a href="/" className='icon' onClick={clickHandler}><FontAwesomeIcon icon={solid('bars')} /></a>
+            <a href="/" className='icon' role="button" onClick={clickHandler}><FontAwesomeIcon icon={icon} /></a>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/">About</a></li>

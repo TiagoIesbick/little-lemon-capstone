@@ -5,7 +5,7 @@ import Nav from "./Nav";
 export default function Footer() {
     return (
         <footer>
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" className='logo'/>
             <div>
                 Doormat Navigation
                 <Nav />

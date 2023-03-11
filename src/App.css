@@ -1,31 +1,129 @@
+h1 {
+  font-family: 'Markazi Text';
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 77px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Markazi Text';
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+button, img {
+  border-radius: 8px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+img.logo {
+  border-radius: 0;
+}
+
+.hero-section {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.hero-section-description {
+  grid-column: 3 / span 4;
+}
+
+.hero-section-image {
+  grid-column: 7 / span 4;
+}
+
+.hero-box-image {
+  width: auto;
+  min-width: 100px;
+  max-width: 100%;
+  height: 250px;
+  margin-left: 2rem;
+  background-image: url("./assets/images/waiter.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.bg-primary {
+  background-color: #495E57;
+}
+
+.bg-secondary {
+  background-color: #f4ce14;
+}
+
+.text-primary {
+  color: #495E57;
+}
+
+.text-secondary {
+  color: #f4ce14;
+}
+
+.text-white {
+  color: white;
+}
+
 header, footer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
-  background-color: aqua;
   overflow: hidden;
 }
 
 header img {
   width: 10rem;
-  grid-column: 1/ span 2;
-  margin: 1rem 0 1rem 2rem;
+  grid-column: 3 / span 2;
+  margin: 1rem 0 1rem 0;
 }
 
 header > nav {
-  grid-column: 3/ span 10;
+  grid-column: 5/ span 5;
+}
+
+header > a {
+  grid-column: 10;
+  text-align: right;
 }
 
 header > nav ul {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0;
 }
 
 a:link, a:visited {
   text-decoration: none;
-  /*color: rgb(64, 70, 75);*/
+  font-size: 20px;
+  color:#495E57;
 }
 
 a:hover, a:active {
@@ -37,38 +135,51 @@ a.icon {
   display: none;
 }
 
-@media screen and (max-width: 900px) {
-  header {grid-template-columns: repeat(3, 1fr);}
+@media screen and (max-width: 1000px) {
+  header, .hero-section {grid-template-columns: repeat(4, 1fr);}
   header > nav {
     grid-column: 1;
     grid-row: 1;
   }
   header > img {
-    grid-column: 2;
-    margin-left: 0;
+    grid-column: 2 / span 2;
+    margin-left: auto;
+    margin-right: auto;
   }
   header > nav ul {display: none;}
   header a.icon {
     display: flex;
+  }
+  header nav a.icon {
     margin-left: 3rem;
+  }
+  header > a {
+    grid-column: 4;
+    margin-right: 3rem;
+  }
+  .hero-section-description {
+    grid-column: 1 / span 2;
+    margin-left: 3rem;
+  }
+  .hero-section-image {
+    grid-column: 3 / span 2;
+    margin-right: 3rem;
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   header > nav.responsive ul {
     position: absolute;
     left: 0;
-    top: 75px;
-    width: 9rem;
-    background-color: aquamarine;
-  }
-  header > nav.responsive ul {
+    top: 75.59px;
+    gap: 1rem;
+    margin: 0;
+    width: 8rem;
+    background-color: white;
     display: block;
-    padding-left: 1rem;
+    padding: 0 0 0.25rem 1rem;
   }
   header > nav.responsive ul li {
-    display: flex;
-    text-align: left;
+    margin-bottom: 0.25rem;
   }
-
 }
