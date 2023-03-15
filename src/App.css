@@ -1,4 +1,4 @@
-h1 {
+h1, h2, h3 {
   font-family: 'Markazi Text';
   font-size: 64px;
   font-weight: 500;
@@ -8,14 +8,14 @@ h1 {
   margin: 0;
 }
 
-h2 {
-  font-family: 'Markazi Text';
+h2, h3 {
   font-size: 40px;
   font-weight: 400;
   line-height: 48px;
-  letter-spacing: 0em;
-  text-align: left;
-  margin: 0;
+}
+
+h3 {
+  font-size: 32px;
 }
 
 p {
@@ -41,13 +41,19 @@ img.logo {
   border-radius: 0;
 }
 
-.hero-section {
-  width: 100%;
-  height: auto;
+.section {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+}
+
+.hero-section {
   align-items: center;
   padding: 3rem 0;
+}
+
+.highlights-section, .testimonials-section, .about-section {
+  padding: 3rem 0 5rem 0;
+  border-bottom: 1px solid #f3f3f3;
 }
 
 .hero-section-description {
@@ -68,14 +74,6 @@ img.logo {
   background-size: cover;
   background-position: center;
   border-radius: 8px;
-}
-
-.highlights-section, .testimonials-section {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 2;
-  padding: 3rem 0 5rem 0;
-  border-bottom: 1px solid #f3f3f3;
 }
 
 .highlights-section header {
@@ -205,6 +203,41 @@ img.logo {
   overflow: hidden;
 }
 
+.about-description {
+  grid-column: 3 / span 4;
+}
+
+.about-section img {
+  width: 240px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.about-photos {
+  grid-column: 7 / span 4;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  position: relative;
+}
+
+.top-photo {
+  grid-column: 5 / span 3;
+  grid-row: 1;
+  z-index: 1;
+}
+
+.bottom-photo {
+  grid-column: 3 / span 3;
+  grid-row: 1;
+  padding-top: 20%;
+  z-index: -1;
+}
+
+.img-border {
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
 header, footer {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -279,6 +312,40 @@ a.icon {
   .hero-section-image {
     grid-column: 3 / span 2;
     margin-right: 3rem;
+  }
+  .about-description {
+    grid-column: 1 / span 12;
+    grid-row: 1;
+    margin: 0 3rem;
+  }
+  .about-description h2,h3 {
+    text-align: center;
+  }
+  .about-description p {
+    text-align: justify;
+  }
+  .about-section img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+  }
+  .about-photos {
+    grid-row: 2;
+    grid-column: 3 / span 8;
+    text-align: center;
+    padding-top: 1rem;
+  }
+  .top-photo {
+    grid-column: 4 / span 4;
+  }
+  .bottom-photo {
+    grid-column: 2 / span 4;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-photos {
+    grid-column: 1 / span 11;
   }
 }
 

@@ -45,9 +45,9 @@ export default function Highlights() {
     });
 
     return (
-        <section className="highlights-section">
+        <section className="section highlights-section">
             <header>
-                <h2>Specials</h2>
+                <h2 className='text-primary'>Specials</h2>
                 <button className="bg-secondary">Online Menu</button>
             </header>
             <div className="articles-container">

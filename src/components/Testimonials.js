@@ -58,8 +58,8 @@ export default function Tetimonials() {
     });
 
     return (
-        <section className='testimonials-section'>
-            <h2>Testimonials</h2>
+        <section className='section testimonials-section'>
+            <h2 className='text-primary'>Testimonials</h2>
             <div className='articles-container'>
                 {reviewsList}
             </div>

@@ -1,6 +1,6 @@
 export default function HeroSection() {
     return (
-        <section className="hero-section bg-primary">
+        <section className="section hero-section bg-primary">
             <div className='hero-section-description'>
                 <h1 className='text-secondary'>Little Lemon</h1>
                 <h2 className='text-white'>Chicago</h2>
