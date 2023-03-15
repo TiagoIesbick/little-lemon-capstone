@@ -26,6 +26,11 @@ p {
   text-align: left;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 button, img {
   border-radius: 8px;
 }
@@ -35,6 +40,58 @@ button {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+}
+
+header, footer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  overflow: hidden;
+}
+
+footer {
+  align-items: revert;
+}
+
+header img {
+  width: 10rem;
+  grid-column: 3 / span 2;
+  margin: 1rem 0 1rem 0;
+}
+
+header > nav {
+  grid-column: 5/ span 5;
+}
+
+header > a {
+  grid-column: 10;
+  text-align: right;
+}
+
+header > nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+}
+
+footer span {
+  font-size: 20px;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  font-size: 20px;
+  color:#495E57;
+}
+
+a:hover, a:active {
+  font-weight: bolder;
+  /*color:rgb(49, 49, 49);*/
+}
+
+a.icon {
+  display: none;
 }
 
 img.logo {
@@ -238,50 +295,24 @@ img.logo {
   border-bottom: 2px solid white;
 }
 
-header, footer {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items: center;
-  overflow: hidden;
-}
-
-header img {
-  width: 10rem;
-  grid-column: 3 / span 2;
-  margin: 1rem 0 1rem 0;
-}
-
-header > nav {
-  grid-column: 5/ span 5;
-}
-
-header > a {
-  grid-column: 10;
-  text-align: right;
-}
-
-header > nav ul {
+.footer-container {
+  grid-column: 3 / span 8;
   display: flex;
-  flex-wrap: wrap;
-  list-style: none;
   justify-content: space-between;
-  padding: 0;
+  flex-wrap: wrap;
 }
 
-a:link, a:visited {
-  text-decoration: none;
-  font-size: 20px;
-  color:#495E57;
+.footer-logo {
+  display: flex;
+  align-items: center;
 }
 
-a:hover, a:active {
-  font-weight: bolder;
-  /*color:rgb(49, 49, 49);*/
+.contact li, .social-media-links li {
+  padding-bottom: 10px;
 }
 
-a.icon {
-  display: none;
-}
+
+
 
 @media screen and (max-width: 1100px) {
   header, .hero-section {grid-template-columns: repeat(4, 1fr);}
@@ -341,11 +372,19 @@ a.icon {
   .bottom-photo {
     grid-column: 2 / span 4;
   }
+  .footer-container {
+    grid-column: 1 / span 12;
+    margin: 0 3rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .about-photos {
-    grid-column: 1 / span 11;
+    grid-column: 1 / span 12;
+  }
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
