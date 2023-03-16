@@ -12,11 +12,11 @@ export default function Footer() {
                     <img src={logo} alt="logo" className='logo'/>
                 </div>
                 <div>
-                    <span>Doormat Navigation</span>
+                    <span className='text-secondary'>Doormat Navigation</span>
                     <Nav />
                 </div>
                 <div className='contact'>
-                    <span>Contact</span>
+                    <span className='text-secondary'>Contact</span>
                     <ul>
                         <li><a href="https://maps.google.com/?q=Chicago"><FontAwesomeIcon icon={solid('location-dot')} /></a></li>
                         <li><a href="tel:+1408XXXXXXX"><FontAwesomeIcon icon={solid('phone')} /></a></li>
@@ -24,7 +24,7 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className='social-media-links'>
-                    <span>Social Media</span>
+                    <span className='text-secondary'>Social Media</span>
                     <ul>
                         <li><a href="/"><FontAwesomeIcon icon={brands('facebook')}/></a></li>
                         <li><a href="/"><FontAwesomeIcon icon={brands('instagram')}/></a></li>
