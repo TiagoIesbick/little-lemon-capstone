@@ -32,7 +32,7 @@ const reviews = [
     },
 ];
 
-export default function Tetimonials() {
+export default function Testimonials() {
     const reviewsList = reviews.map(review => {
         let stars = [];
         for (let i = 0; i < Number(review.rating); i++) {

@@ -62,6 +62,7 @@ header, footer {
   transition-property: top;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
+  border-bottom: 1px solid #f3f3f3;
 }
 
 footer {
@@ -130,11 +131,17 @@ img.logo {
   border-bottom: 1px solid #f3f3f3;
 }
 
+.hero-section h1 {
+  grid-column: 3 / span 4;
+}
+
 .hero-section-description {
+  grid-row: 2;
   grid-column: 3 / span 4;
 }
 
 .hero-section-image {
+  grid-row: 1 / span 2;
   grid-column: 7 / span 4;
 }
 
@@ -363,7 +370,7 @@ img.logo {
 
 
 @media screen and (max-width: 1100px) {
-  header, .hero-section {grid-template-columns: repeat(4, 1fr);}
+  header {grid-template-columns: repeat(4, 1fr);}
   header > nav {
     grid-column: 1;
     grid-row: 1;
@@ -382,14 +389,6 @@ img.logo {
   }
   header > a {
     grid-column: 4;
-    margin-right: 3rem;
-  }
-  .hero-section-description {
-    grid-column: 1 / span 2;
-    margin-left: 3rem;
-  }
-  .hero-section-image {
-    grid-column: 3 / span 2;
     margin-right: 3rem;
   }
   .about-description {
@@ -450,12 +449,36 @@ img.logo {
     transition-property: top;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
+    border-right: 1px solid #f3f3f3;
+    border-bottom: 1px solid #f3f3f3;
   }
   header > nav.responsive ul li {
     margin-bottom: 0.25rem;
   }
   .highlights-section {
     grid-auto-flow: row;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .hero-section {grid-template-columns: repeat(4, 1fr);}
+  .hero-section h1 {
+    grid-row: 1;
+    grid-column: 1 / span 4;
+    margin-left: 3rem;
+  }
+  .hero-section-description {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    margin-left: 3rem;
+  }
+  .hero-section-image {
+    grid-row: 2;
+    grid-column: 3 / span 2;
+    margin-right: 3rem;
+  }
+  .hero-box-image {
+    margin-top: 1rem;
   }
 }
 

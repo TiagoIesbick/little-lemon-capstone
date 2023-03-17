@@ -13,7 +13,6 @@ export default function Header() {
         const handleScroll = () => {
           const currentScrollPos = window.scrollY;
           const headerElement = headerRef.current;
-          console.log(headerElement.childNodes[1].childNodes[1].style.top);
           if (!headerElement) {
             return;
           }

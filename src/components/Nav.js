@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 export default function Nav() {
     const [ icon, setIcon ] = useState(solid('bars'));
@@ -21,16 +22,18 @@ export default function Nav() {
     };
 
     return (
-        <nav>
-            <a href="/" className='icon' role="button" onClick={clickHandler}><FontAwesomeIcon icon={icon} /></a>
-            <ul>
-                <li><a href="/" className='underline'>Home</a></li>
-                <li><a href="/" className='underline'>About</a></li>
-                <li><a href="/" className='underline'>Menu</a></li>
-                <li><a href="/" className='underline'>Reservations</a></li>
-                <li><a href="/" className='underline'>Order Online</a></li>
-                <li><a href="/" className='underline'>Login</a></li>
-            </ul>
-        </nav>
+        <>
+            <nav>
+                <a href="*" className='icon' role="button" onClick={clickHandler}><FontAwesomeIcon icon={icon} /></a>
+                <ul>
+                    <li><Link to="/" className='underline'>Home</Link></li>
+                    <li><Link to="/about" className='underline'>About</Link></li>
+                    <li><Link to="/menu" className='underline'>Menu</Link></li>
+                    <li><a href="*" className='underline'>Reservations</a></li>
+                    <li><a href="*" className='underline'>Order Online</a></li>
+                    <li><a href="*" className='underline'>Login</a></li>
+                </ul>
+            </nav>
+        </>
     );
 };
