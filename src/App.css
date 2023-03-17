@@ -40,6 +40,7 @@ button {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  border: none;
 }
 
 main {
@@ -357,7 +358,7 @@ img.logo {
   height: 2px;
   transition-property: width;
   transition-duration: 0.5s;
-  transition-timing-function: ease-out;
+  transition-timing-function: ease-in-out;
 }
 
 .underline:hover:after, .underline:focus:after, .underline:active:after {
@@ -366,6 +367,10 @@ img.logo {
   width: 100%;
 }
 
+button.bg-secondary:hover {
+  background-color: #eae012;
+  transition: .3s;
+}
 
 
 
