@@ -29,7 +29,7 @@ export default function Nav() {
                     <li><Link to="/" className='underline'>Home</Link></li>
                     <li><Link to="/about" className='underline'>About</Link></li>
                     <li><Link to="/menu" className='underline'>Menu</Link></li>
-                    <li><a href="*" className='underline'>Reservations</a></li>
+                    <li><Link to="/reservations" className='underline'>Reservations</Link></li>
                     <li><a href="*" className='underline'>Order Online</a></li>
                     <li><a href="*" className='underline'>Login</a></li>
                 </ul>

@@ -18,7 +18,7 @@ export default function Footer() {
                 <div className='contact'>
                     <span className='text-secondary'>Contact</span>
                     <ul>
-                        <li><a href="https://maps.google.com/?q=Chicago"><FontAwesomeIcon icon={solid('location-dot')} /></a></li>
+                        <li><a href="https://maps.google.com/?q=Chicago" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={solid('location-dot')} /></a></li>
                         <li><a href="tel:+1408XXXXXXX"><FontAwesomeIcon icon={solid('phone')} /></a></li>
                         <li><a href="mailto:littlelemon@littlelemon.com"><FontAwesomeIcon icon={solid('envelope')} /></a></li>
                     </ul>
@@ -26,9 +26,9 @@ export default function Footer() {
                 <div className='social-media-links'>
                     <span className='text-secondary'>Social Media</span>
                     <ul>
-                        <li><a href="/"><FontAwesomeIcon icon={brands('facebook')}/></a></li>
-                        <li><a href="/"><FontAwesomeIcon icon={brands('instagram')}/></a></li>
-                        <li><a href="/"><FontAwesomeIcon icon={brands('twitter')}/></a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={brands('facebook')}/></a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={brands('instagram')}/></a></li>
+                        <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={brands('twitter')}/></a></li>
                     </ul>
                 </div>
             </div>

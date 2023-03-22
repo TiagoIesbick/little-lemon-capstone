@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeroSection() {
     return (
         <section className="section hero-section bg-primary">
@@ -7,7 +9,7 @@ export default function HeroSection() {
                 <p>
                     We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
                 </p>
-                <button className='bg-secondary'>Reserve a Table</button>
+                <Link to="/reservations"><button className='bg-secondary'>Reserve a Table</button></Link>
             </div>
             <div className='hero-section-image'>
                 <div className='hero-box-image'>
