@@ -1,49 +1,44 @@
-import { useState } from "react";
-
-function removeTime(array, value) {
-    let index = array.indexOf(value);
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-    return array;
-};
-
-function addDate(array, value) {
-    if (!array.includes(value)) {
-        array.push(value);
-    }
-    return array;
-};
+import { useState, useEffect } from "react";
 
 const BookingForm = (props) => {
     const [guests, setGuests] = useState("2");
-    const [reserveDate, setReserveDate] = useState(props.availableTimes.date[0]);
-    const [reserveTime, setReserveTime] = useState("select")
+    const [formData, setFormData] = useState({guests: null, date: null, time: null});
 
-    const defaultListTime = ["select", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+    useEffect(() => {
+        setFormData({
+            guests: guests,
+            date: props.availableTimes.date,
+            time: props.availableTimes.selected_time,
+        });
+    }, [guests, props.availableTimes.date, props.availableTimes.selected_time]);
 
-    const options = props.availableTimes.date.includes(reserveDate) ?
-    props.availableTimes.time[props.availableTimes.date.indexOf(reserveDate)].map(item => <option data-testid="select-option" value={item} key={item}>{item}</option>) :
-    defaultListTime.map(item => <option data-testid="select-option" value={item} key={item}>{item}</option>);
+    const options = props.availableTimes.time.map(item => <option data-testid="select-option" value={item} key={item}>{item}</option>);
+
+    const fetchData = async (data = {}) => {
+        /*
+        Here I set up another endpoint to send data to the mock server.
+        It receives the formData then makes a post request.
+        https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table
+        */
+        const response = await fetch("https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        fetchData(formData).then( data => console.log(data));
         console.log("Form Submitted");
-        console.log(reserveDate, reserveTime);
-        let index = null;
-        let newAvailableTimes = props.availableTimes.time;
-        let newDates = props.availableTimes.date;
-
-        if (newDates.includes(reserveDate)) {
-            index = newDates.indexOf(reserveDate);
-            newAvailableTimes[index] = removeTime(newAvailableTimes[index], reserveTime);
-        } else {
-            newDates = addDate(props.availableTimes.date, reserveDate);
-            newAvailableTimes.push(removeTime(defaultListTime, reserveTime));
-        };
-        console.log(newDates);
-        console.log(newAvailableTimes);
-        props.dispatch({type: "SET_MULTIPLE", payload: {date: newDates, time: newAvailableTimes}});
+        const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
+        props.dispatch({type: "SET_DATA", payload: {
+            time: timeList,
+            selected_time: timeList[0]
+        }});
     };
 
     return (
@@ -62,18 +57,24 @@ const BookingForm = (props) => {
                 <input
                     id="date"
                     type="date"
-                    value={reserveDate}
-                    onChange={(e) => {if(e.target.value >= props.availableTimes.date[0]) return setReserveDate(e.target.value)}}
+                    value={props.availableTimes.date}
+                    onChange={(e) => {
+                        if (e.target.value >= props.today) {
+                            props.dispatch({type: "SET_DATA", payload: {date: e.target.value}});
+                        };
+                    }}
                 />
-                <label htmlFor="time">Time:</label>
+                <label htmlFor="time">Available Times:</label>
                 <select
                     id="time"
-                    value={reserveTime}
-                    onChange={(e) => {if(e.target.value !== "select") return setReserveTime(e.target.value)}}
+                    value={props.availableTimes.selected_time}
+                    onChange={(e) => {
+                        props.dispatch({type: "SET_DATA", payload: {selected_time: e.target.value}});
+                    }}
                 >
                     {options}
                 </select>
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={props.availableTimes.selected_time === undefined}>Submit</button>
             </fieldset>
 
         </form>

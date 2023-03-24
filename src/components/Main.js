@@ -4,30 +4,45 @@ import Testimonials from "./Testimonials";
 import About from "./About";
 import BookingForm from "./BookingForm";
 import { Routes, Route } from "react-router-dom";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 const date = new Date();
 const today = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`
 
-const updateTimes = (state, action) => {
-    switch (action.type) {
-        case "SET_DATE":
-            return {...state, date: action.payload.date}
-        case "SET_TIME":
-            return {...state, time: action.payload.time}
-        case "SET_MULTIPLE":
-            return {...state, ...action.payload}
-        default:
-            throw new Error("Something went wrong")
+const dataFormat = (data) => {
+    return {
+        date: data.date,
+        time: data.time.map(time => time.substr(16,5)).sort(),
+        selected_time: data.time.map(time => time.substr(16,5)).sort()[0]
     }
 };
 
-export default function Main() {
-    const initialState = {date: [today], time: [["select", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]]};
-    const [state, dispatch] = useReducer(updateTimes, initialState)
+const updateTimes = (state, action) => {
+    if (action.type === 'SET_DATA') return {...state, ...action.payload};
+    return state
+};
 
-    console.log(state.time);
-    console.log(state.date);
+
+export default function Main() {
+    const [state, dispatch] = useReducer(updateTimes, {date: today, time: [], selected_time: null});
+    /*
+    Here to establish an endpoint I've created my own mock server at Postman.
+    It receives a date in string format as a query parameter.
+    'https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times?date="2023-03-23"'
+    */
+    const url = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times";
+
+    const fetchData = () => {
+        fetch(`${url}?date="${state.date}"`)
+            .then(response => response.json())
+            .then(data => dispatch({type: 'SET_DATA', payload: dataFormat(data)}));
+    };
+
+    useEffect(() => {
+        fetchData(); // eslint-disable-next-line
+    },[state.date]);
+
+    console.log(state);
 
     return (
         <main>
@@ -36,7 +51,7 @@ export default function Main() {
                 <Route path="/about" element={<About />} />
                 <Route path="/specials" element={<Highlights />} />
                 <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} />} />
+                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} />} />
             </Routes>
         </main>
     );
