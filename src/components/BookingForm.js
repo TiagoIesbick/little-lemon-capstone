@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate} from "react-router-dom";
+
 
 const BookingForm = (props) => {
+    const navigate = useNavigate();
     const [guests, setGuests] = useState("2");
     const [formData, setFormData] = useState({guests: null, date: null, time: null});
 
@@ -14,25 +17,14 @@ const BookingForm = (props) => {
 
     const options = props.availableTimes.time.map(item => <option data-testid="select-option" value={item} key={item}>{item}</option>);
 
-    const fetchData = async (data = {}) => {
-        /*
-        Here I set up another endpoint to send data to the mock server.
-        It receives the formData then makes a post request.
-        https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table
-        */
-        const response = await fetch("https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-        return response.json();
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetchData(formData).then( data => console.log(data));
+        props.submitForm(formData)
+            .then( data => {
+                console.log(data);
+                props.setServerResponse(data);
+                navigate("/confirmed-reservation");
+            });
         console.log("Form Submitted");
         const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
         props.dispatch({type: "SET_DATA", payload: {
@@ -42,42 +34,58 @@ const BookingForm = (props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <label htmlFor="number-of-guests">Number of Guests:</label>
-                <input
-                    id="number-of-guests"
-                    type="range"
-                    min="1"
-                    max="10"
-                    value={guests}
-                    onChange={(e) => setGuests(e.target.value)}
-                />
-                <label htmlFor="date">Date:</label>
-                <input
-                    id="date"
-                    type="date"
-                    value={props.availableTimes.date}
-                    onChange={(e) => {
-                        if (e.target.value >= props.today) {
-                            props.dispatch({type: "SET_DATA", payload: {date: e.target.value}});
-                        };
-                    }}
-                />
-                <label htmlFor="time">Available Times:</label>
-                <select
-                    id="time"
-                    value={props.availableTimes.selected_time}
-                    onChange={(e) => {
-                        props.dispatch({type: "SET_DATA", payload: {selected_time: e.target.value}});
-                    }}
-                >
-                    {options}
-                </select>
-                <button type="submit" disabled={props.availableTimes.selected_time === undefined}>Submit</button>
-            </fieldset>
+        <section className="section form-section">
+            <form onSubmit={handleSubmit}>
+                <fieldset>
+                    <div className="form-control">
+                        <label htmlFor="number-of-guests">Number of Guests:</label>
+                        <input
+                            id="number-of-guests"
+                            type="range"
+                            min="1"
+                            max="10"
+                            value={guests}
+                            onChange={(e) => setGuests(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="date">Date:</label>
+                        <input
+                            id="date"
+                            type="date"
+                            value={props.availableTimes.date}
+                            onChange={(e) => {
+                                if (e.target.value >= props.today) {
+                                    props.dispatch({type: "SET_DATA", payload: {date: e.target.value}});
+                                };
+                            }}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="time">Available Times:</label>
+                        <select
+                            id="time"
+                            value={props.availableTimes.selected_time}
+                            onChange={(e) => {
+                                props.dispatch({type: "SET_DATA", payload: {selected_time: e.target.value}});
+                            }}
+                        >
+                            {options}
+                        </select>
+                    </div>
+                    <div className="text-center">
+                        <button
+                            type="submit"
+                            disabled={props.availableTimes.selected_time === undefined}
+                            className="bg-secondary"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </fieldset>
 
-        </form>
+            </form>
+        </section>
     );
 };
 

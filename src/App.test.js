@@ -1,36 +1,57 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, renderHook, act } from '@testing-library/react';
+import { updateTimes } from './components/Main';
 import BookingForm from './components/BookingForm';
+import { BrowserRouter } from 'react-router-dom';
+import { useReducer } from 'react';
+
 
 describe("Booking Form", () => {
-  const initialState = {date: ["2023-03-20"], time: [["select", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]]};
+  const initialState = {date: "2023-03-20", time: ["17:00", "18:00", "19:00", "20:00", "21:00"], selected_time: "17:00"};
+  const {result} = renderHook(() => useReducer(updateTimes, initialState));
+  const [state, dispatch] = result.current;
+  const mockDispath = jest.fn(dispatch);
 
   test('If label "Number of Guests:" was rendered', () => {
-    render(<BookingForm availableTimes={initialState} />);
+    render(
+      <BrowserRouter>
+        <BookingForm availableTimes={state} dispatch={mockDispath} />
+      </BrowserRouter>
+    );
     const strNumberOfGuests = screen.getByLabelText('Number of Guests:');
     expect(strNumberOfGuests).toBeInTheDocument();
   });
 
   test('If initial State date was passed to date input as a value', () => {
-    render(<BookingForm  availableTimes={initialState} />);
+    render(
+      <BrowserRouter>
+        <BookingForm availableTimes={state} dispatch={mockDispath} />
+      </BrowserRouter>
+    );
     const strDate = screen.getByDisplayValue("2023-03-20");
     expect(strDate).toHaveAttribute('id', 'date');
   });
 
-  test('If time is being selected', () => {
-    const handleSubmit = jest.fn();
-    const dispatch = jest.fn();
-    render(<BookingForm  availableTimes={initialState} onSubmit={handleSubmit} dispatch={dispatch}/>);
-
-    const timeSelect = screen.getByLabelText('Time:');
-    fireEvent.change(timeSelect, {target: {value: "18:00"}});
-
-    let options = screen.getAllByTestId('select-option')
-
-    expect(options[0].selected).toBeFalsy();
-    expect(options[1].selected).toBeFalsy();
-    expect(options[2].selected).toBeTruthy();
+  test('If updateTimes updates the values', () => {
+    const updateAction = {type: 'SET_DATA', payload: {selected_time: "18:00"}};
+    const updatedState = updateTimes(initialState, updateAction);
+    expect(updatedState.selected_time).toEqual("18:00");
   });
 
+  test('If dispatch from updateTimes is being called correctly', () => {
+    render(
+      <BrowserRouter>
+        <BookingForm availableTimes={state} dispatch={mockDispath} today={initialState.date} />
+      </BrowserRouter>
+    );
 
+    const selectedTime = screen.getByLabelText('Available Times:');
+    const selectedDate = screen.getByLabelText('Date:');
+    fireEvent.change(selectedTime, {target: {value: '18:00'}});
+    fireEvent.change(selectedDate, {target: {value: '2023-03-21'}});
+    // if selectedDate is less than today mockDispatch shouldn't be called
+    fireEvent.change(selectedDate, {target: {value: '2023-03-19'}});
+
+    expect(mockDispath).toHaveBeenCalledTimes(2);
+    expect(mockDispath).not.toHaveBeenCalledTimes(1);
+  });
 });
