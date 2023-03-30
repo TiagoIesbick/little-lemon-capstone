@@ -18,6 +18,9 @@ It receives a date in string format as a query parameter.
 */
 const url = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times";
 
+
+
+
 const dataFormat = (data) => {
     return {
         date: data.date,
@@ -30,25 +33,6 @@ export const updateTimes = (state, action) => {
     if (action.type === 'SET_DATA') return {...state, ...action.payload};
     return state
 };
-
-/*
-Here I set up another endpoint to send data to the mock server.
-It receives the formData via POST request.
-https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table
-*/
-const urlPost = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table";
-
-const submitForm = async (data = {}) => {
-    const response = await fetch(urlPost, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    return response.json();
-};
-
 
 export default function Main() {
     const [state, dispatch] = useReducer(updateTimes, {date: today, time: [], selected_time: undefined});
@@ -71,7 +55,7 @@ export default function Main() {
                 <Route path="/about" element={<About />} />
                 <Route path="/specials" element={<Highlights />} />
                 <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} submitForm={submitForm} setServerResponse={setServerResponse} />} />
+                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} setServerResponse={setServerResponse} />} />
                 <Route path="/confirmed-reservation" element={<ConfirmedBooking serverResponse={serverResponse} />} />
             </Routes>
         </main>

@@ -1,3 +1,5 @@
+*, ::after, ::before { box-sizing: border-box; }
+
 h1, h2, h3 {
   font-family: 'Markazi Text';
   font-size: 64px;
@@ -117,6 +119,14 @@ img.logo {
   border-radius: 0;
 }
 
+fieldset {
+  width: 100%;
+  max-width: 400px;
+  min-width: fit-content;
+  padding: 1em;
+  border: none;
+}
+
 .section {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -184,7 +194,7 @@ img.logo {
 }
 
 .article-box-testimonials {
-  width: 175px;
+  width: 210px;
   background-color: #edefee;
   padding: 1rem;
   border-radius: 8px;
@@ -205,7 +215,7 @@ img.logo {
 
 .specials-details {
   padding: 1rem;
-  height: calc(100% - 214px);
+  height: calc(100% - 180px);
   display: flex;
   flex-direction: column;
 }
@@ -218,23 +228,104 @@ img.logo {
   margin-bottom: 3rem;
 }
 
+.step-group-one {
+  grid-row: 1;
+  grid-column: 3 / span 4;
+  border-top: 1px solid black;
+  display: flex;
+}
+
+.step-group-two {
+  grid-row: 1;
+  grid-column: 7 / span 4;
+  border-top: 1px solid black;
+}
+
+.step-group-one div:first-child {
+  position: relative;
+  top: -10px;
+  left: 0;
+  cursor: pointer;
+}
+
+.step-group-one div:last-child {
+  position: relative;
+  top: -10px;
+  left: calc(100% - 30px);
+}
+
+.step-group-two div {
+  position: relative;
+  top: -10px;
+  float: right;
+}
+
+.step-group-one div span, .step-group-two div span {
+  position: absolute;
+  top: 20px;
+  font-size: 14px;
+}
+
+.step-group-one div:first-child span {
+  left: -27px;
+}
+
+.step-group-one div:last-child span {
+  left: -50%;
+}
+
+
+
+.step-group-two div span {
+  left: -10px;
+}
+
+
+
+
 .form-section form {
+  grid-row: 2;
   grid-column: 3 / span 8;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form-control {
-  width: 100%;
-  min-width: 250px;
+.form-group {
+  min-width: 200px;
   margin-bottom: 1em;
 }
 
-.form-control label {
-  display: flex;
+.form-control {
   width: 100%;
+  max-width: 390px;
+  background-color: #eceeee;
+  border: 1px solid #919e9a;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 40px;
+  padding: 10px;
 }
+
+textarea.form-control {
+  height: revert;
+  font-family: Karla;
+  font-size: 16px;
+}
+
+.form-control:hover {
+  border-color: #495E57;
+}
+
+.RadioGroup {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.RadioOption {
+  font-size: 15px;
+}
+
 
 .bg-primary {
   background-color: #495E57;
@@ -394,7 +485,55 @@ button.bg-secondary:hover {
   transition: .3s;
 }
 
+.btn-progress {
+  position: relative;
+  background-image: url("./assets/images/spinner-white.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  color: transparent !important;
+}
 
+
+.steplist {
+  border-top: 1px solid #f4ce14;
+  display: inline-flex;
+  list-style-type: none;
+  gap: 10em;
+  margin: 0;
+  padding: 0;
+}
+
+.steplist li {
+  color: #495E57;
+  cursor: pointer;
+  padding: calc(5px + var(--circle-radius)) 0 0;
+  margin: 0;
+  top: -10px;
+  position: relative;
+  text-align: center;
+}
+
+.steplist li:first-child {
+  left: 0;
+}
+
+.steplist li span {
+  position: absolute;
+  top: 20px;
+  font-size: 14px;
+}
+
+.steplist li:first-child span {
+  left: -27px;
+}
+
+.steplist li:nth-child(2) span {
+  left: -15px;
+}
+.steplist li:last-child span {
+  left: -10px;
+}
 
 
 @media screen and (max-width: 1100px) {
@@ -463,6 +602,20 @@ button.bg-secondary:hover {
   }
 }
 
+@media screen and (max-width: 650px) {
+  .form-section form {
+    grid-column: 1 / span 12;
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .steplist {
+    gap: 7rem;
+  }
+}
+
 @media screen and (max-width: 1100px) {
   header > nav.responsive ul {
     position: fixed;
@@ -470,7 +623,7 @@ button.bg-secondary:hover {
     top: 75.667px;
     gap: 1rem;
     margin: 0;
-    width: 8rem;
+    width: 9rem;
     background-color: white;
     display: block;
     padding: 0 0 0.25rem 1rem;
