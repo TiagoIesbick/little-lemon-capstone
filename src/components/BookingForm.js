@@ -21,8 +21,18 @@ const BookingForm = (props) => {
     const [selectedNeeds, setSelectedNeeds] = useState("no");
     const [occasion, setOccasion] = useState("");
     const [formData, setFormData] = useState({guests: null, date: null, time: null});
+    const stepOne = useRef(null);
+    const stepTwo = useRef(null);
+    const detailsButton = useRef(null);
+    const clientButton = useRef(null);
+    const availableTimesLoad = useRef(null);
+    const reservationFormRef = useRef(null);
+    const detailsFormRef = useRef(null);
+    const clientFormRef = useRef(null);
     const submitButtonRef = useRef(null);
+    const loadingTimes = props.loadingTimes
     const setServerResponse = props.setServerResponse;
+
 
     useEffect(() => {
         setFormData({
@@ -41,6 +51,14 @@ const BookingForm = (props) => {
     }, [response, navigate, setServerResponse]);
 
     useEffect(() => {
+        if (loadingTimes) {
+            availableTimesLoad.current.classList.add("btn-progress");
+        } else {
+            availableTimesLoad.current.classList.remove("btn-progress");
+        }
+    }, [loadingTimes]);
+
+    useEffect(() => {
         if (isLoading) {
             submitButtonRef.current.classList.add("btn-progress");
         } else {
@@ -50,6 +68,41 @@ const BookingForm = (props) => {
 
     const options = props.availableTimes.time.map((item, index) => <option data-testid="select-option" value={item} key={index}>{item}</option>);
 
+    const handleClick = (e) => {
+        const parentNode = e.target.parentNode;
+        if (parentNode.classList.contains('details-button') || parentNode.classList.contains("fa-utensils")) {
+            detailsFormRef.current.removeAttribute('hidden');
+            reservationFormRef.current.setAttribute('hidden', 'true');
+            clientFormRef.current.setAttribute('hidden', 'true');
+            submitButtonRef.current.setAttribute('hidden', 'true');
+            stepOne.current.style.borderTop = '2px solid #f4ce14';
+            detailsButton.current.style.color = '#495E57';
+            stepTwo.current.style.borderTop = '1px dashed #d4d6d6';
+            clientButton.current.style.color = '#8d8e8e';
+        };
+        if (parentNode.classList.contains('reservation-button') || parentNode.classList.contains("fa-calendar-check")) {
+            reservationFormRef.current.removeAttribute('hidden');
+            detailsFormRef.current.setAttribute('hidden', 'true');
+            clientFormRef.current.setAttribute('hidden', 'true');
+            submitButtonRef.current.setAttribute('hidden', 'true');
+            stepOne.current.style.borderTop = '1px dashed #d4d6d6';
+            detailsButton.current.style.color = '#8d8e8e';
+            stepTwo.current.style.borderTop = '1px dashed #d4d6d6';
+            clientButton.current.style.color = '#8d8e8e';
+        };
+        if (parentNode.classList.contains('client-button') || parentNode.classList.contains("fa-user")) {
+            clientFormRef.current.removeAttribute('hidden');
+            submitButtonRef.current.removeAttribute('hidden');
+            reservationFormRef.current.setAttribute('hidden', 'true');
+            detailsFormRef.current.setAttribute('hidden', 'true');
+            stepOne.current.style.borderTop = '2px solid #f4ce14';
+            detailsButton.current.style.color = '#495E57';
+            stepTwo.current.style.borderTop = '2px solid #f4ce14';
+            clientButton.current.style.color = '#495E57';
+        };
+        console.log("click");
+    };
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         submit(urlPost, formData);
@@ -63,24 +116,24 @@ const BookingForm = (props) => {
 
     return (
         <section className="section form-section">
-            <div className="step-group-one">
-                <div onClick={() => console.log("click")}>
-                    <FontAwesomeIcon  icon={solid("circle-check")} size="lg" style={{backgroundColor: "white"}}/>
+            <div className="step-group-one" ref={stepOne}>
+                <div className="reservation-button" role="button" onClick={handleClick}>
+                    <FontAwesomeIcon  icon={solid("calendar-check")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Reservation</span>
                 </div>
-                <div>
-                    <FontAwesomeIcon icon={solid("circle-check")} size="lg" style={{backgroundColor: "white"}}/>
+                <div className="details-button" role="button" onClick={handleClick} ref={detailsButton}>
+                    <FontAwesomeIcon icon={solid("utensils")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Details</span>
                 </div>
             </div>
-            <div className="step-group-two">
-                <div>
-                    <FontAwesomeIcon icon={solid("circle-check")} size="lg" style={{backgroundColor: "white"}}/>
+            <div className="step-group-two" ref={stepTwo}>
+                <div className="client-button" role="button" onClick={handleClick} ref={clientButton}>
+                    <FontAwesomeIcon icon={solid("user")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Client</span>
                 </div>
             </div>
             <form onSubmit={handleSubmit}>
-                <fieldset >
+                <fieldset id="reservationForm" ref={reservationFormRef}>
                     <div className="form-group">
                         <label htmlFor="number-of-guests">Number of Guests:</label>
                         <select
@@ -123,12 +176,13 @@ const BookingForm = (props) => {
                                 props.dispatch({type: "SET_DATA", payload: {selected_time: e.target.value}});
                             }}
                             className="form-control"
+                            ref={availableTimesLoad}
                         >
                             {options}
                         </select>
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset id="detailsForm" hidden ref={detailsFormRef}>
                     <div className="form-group">
                         <label htmlFor="occasion">Occasion:</label>
                         <select onChange={(e) => setOccasion(e.target.value)} value={occasion} className="form-control">
@@ -157,7 +211,7 @@ const BookingForm = (props) => {
                         <textarea id="comment" name="comment" value="hello" rows={4} className="form-control" />
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset id="clientForm" hidden ref={clientFormRef}>
                     <div className="form-group">
                         <label htmlFor="firstName">First Name:</label>
                         <input type="text" autoComplete="given-name" id="firstName" required className="form-control" />
@@ -182,6 +236,7 @@ const BookingForm = (props) => {
                             props.availableTimes.selected_time === undefined || isLoading
                         }
                         className="bg-secondary"
+                        hidden
                         ref={submitButtonRef}
                     >
                         Submit

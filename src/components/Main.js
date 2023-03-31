@@ -37,11 +37,16 @@ export const updateTimes = (state, action) => {
 export default function Main() {
     const [state, dispatch] = useReducer(updateTimes, {date: today, time: [], selected_time: undefined});
     const [serverResponse, setServerResponse] = useState({});
+    const [loadingTimes, setLoadingTimes] = useState(false);
 
-    const fetchData = () => {
-        fetch(`${url}?date="${state.date}"`)
+    const fetchData = async () => {
+        setLoadingTimes(true);
+        await fetch(`${url}?date="${state.date}"`)
             .then(response => response.json())
-            .then(data => dispatch({type: 'SET_DATA', payload: dataFormat(data)}));
+            .then(data => {
+                dispatch({type: 'SET_DATA', payload: dataFormat(data)});
+                setLoadingTimes(false);
+            });
     };
 
     useEffect(() => {
@@ -55,7 +60,7 @@ export default function Main() {
                 <Route path="/about" element={<About />} />
                 <Route path="/specials" element={<Highlights />} />
                 <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} setServerResponse={setServerResponse} />} />
+                <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} setServerResponse={setServerResponse} loadingTimes={loadingTimes}/>} />
                 <Route path="/confirmed-reservation" element={<ConfirmedBooking serverResponse={serverResponse} />} />
             </Routes>
         </main>

@@ -1,5 +1,70 @@
 *, ::after, ::before { box-sizing: border-box; }
 
+#root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header, footer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  overflow: hidden;
+  background-color: white;
+}
+
+#root > header {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  transition-property: top;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  border-bottom: 1px solid #f3f3f3;
+  grid-row: 1;
+}
+
+main {
+  position: relative;
+  top: 75.667px;
+  grid-row: 2;
+}
+
+footer {
+  align-items: revert;
+  position: relative;
+  top: 75.667px;
+  grid-row: 3;
+  border-top: 1px solid #f3f3f3;
+}
+
+footer span {
+  font-size: 20px;
+}
+
+header img {
+  width: 10rem;
+  grid-column: 3 / span 2;
+  margin: 1rem 0 1rem 0;
+}
+
+header > nav {
+  grid-column: 5/ span 5;
+}
+
+header > a {
+  grid-column: 10;
+  text-align: right;
+}
+
+header > nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+}
+
 h1, h2, h3 {
   font-family: 'Markazi Text';
   font-size: 64px;
@@ -45,61 +110,6 @@ button {
   border: none;
 }
 
-main {
-  position: relative;
-  top: 75.667px;
-}
-
-header, footer {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items: center;
-  overflow: hidden;
-  background-color: white;
-}
-
-#root > header {
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-  transition-property: top;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in-out;
-  border-bottom: 1px solid #f3f3f3;
-}
-
-footer {
-  align-items: revert;
-  position: relative;
-  top: 75.667px;
-}
-
-footer span {
-  font-size: 20px;
-}
-
-header img {
-  width: 10rem;
-  grid-column: 3 / span 2;
-  margin: 1rem 0 1rem 0;
-}
-
-header > nav {
-  grid-column: 5/ span 5;
-}
-
-header > a {
-  grid-column: 10;
-  text-align: right;
-}
-
-header > nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0;
-}
-
 a:link, a:visited {
   text-decoration: none;
   font-size: 20px;
@@ -137,9 +147,14 @@ fieldset {
   padding: 3rem 0;
 }
 
-.highlights-section, .testimonials-section, .about-section, .form-section {
+.highlights-section, .testimonials-section {
   padding: 3rem 0 5rem 0;
   border-bottom: 1px solid #f3f3f3;
+}
+
+.form-section {
+  grid-template-rows: 2rem 1fr;
+  padding: 5rem 0;
 }
 
 .hero-section h1 {
@@ -230,22 +245,39 @@ fieldset {
 
 .step-group-one {
   grid-row: 1;
-  grid-column: 3 / span 4;
-  border-top: 1px solid black;
+  grid-column: 4 / span 3;
+  border-top: 1px dashed #d4d6d6;
   display: flex;
 }
 
 .step-group-two {
   grid-row: 1;
-  grid-column: 7 / span 4;
-  border-top: 1px solid black;
+  grid-column: 7 / span 3;
+  border-top: 1px dashed #d4d6d6;
+
+}
+
+.reservation-button, .details-button, .client-button {
+  cursor: pointer;
+}
+
+.reservation-button:hover, .details-button:hover, .client-button:hover{
+  scale: 1.1;
+  transition: all .5s ease-in-out;
+}
+
+.reservation-button {
+  color: #495E57;
+}
+
+.details-button, .client-button {
+  color: #8d8e8e;
 }
 
 .step-group-one div:first-child {
   position: relative;
   top: -10px;
   left: 0;
-  cursor: pointer;
 }
 
 .step-group-one div:last-child {
@@ -274,14 +306,9 @@ fieldset {
   left: -50%;
 }
 
-
-
 .step-group-two div span {
   left: -10px;
 }
-
-
-
 
 .form-section form {
   grid-row: 2;
@@ -289,6 +316,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .form-group {
@@ -296,15 +324,32 @@ fieldset {
   margin-bottom: 1em;
 }
 
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #495E57;
+
+}
+/*
+font-family: Inter;
+font-size: 15px;
+font-weight: 500;
+line-height: 18px;
+letter-spacing: 0em;
+text-align: left;*/
+
+
 .form-control {
   width: 100%;
   max-width: 390px;
-  background-color: #eceeee;
+  background-color: #f1f3f3;
   border: 1px solid #919e9a;
   font-size: 14px;
   border-radius: 8px;
   height: 40px;
   padding: 10px;
+  color: #495E57;
 }
 
 textarea.form-control {
@@ -315,6 +360,8 @@ textarea.form-control {
 
 .form-control:hover {
   border-color: #495E57;
+  background-color: #eceeee;
+  transition: .3s;
 }
 
 .RadioGroup {
@@ -323,9 +370,12 @@ textarea.form-control {
 }
 
 .RadioOption {
-  font-size: 15px;
+  font-size: 14px;
 }
 
+.RadioOption label {
+  font-weight: 500;
+}
 
 .bg-primary {
   background-color: #495E57;
@@ -347,6 +397,10 @@ textarea.form-control {
   color: white;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .title {
   font-weight: bold;
   font-size: 18px;
@@ -357,10 +411,6 @@ textarea.form-control {
 
 .text-price {
   color: #ee9972;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .item-description {
@@ -405,6 +455,10 @@ textarea.form-control {
 
 .about-description {
   grid-column: 3 / span 4;
+}
+
+.about-section {
+  padding: 5rem 0;
 }
 
 .about-section img {
@@ -494,48 +548,6 @@ button.bg-secondary:hover {
   color: transparent !important;
 }
 
-
-.steplist {
-  border-top: 1px solid #f4ce14;
-  display: inline-flex;
-  list-style-type: none;
-  gap: 10em;
-  margin: 0;
-  padding: 0;
-}
-
-.steplist li {
-  color: #495E57;
-  cursor: pointer;
-  padding: calc(5px + var(--circle-radius)) 0 0;
-  margin: 0;
-  top: -10px;
-  position: relative;
-  text-align: center;
-}
-
-.steplist li:first-child {
-  left: 0;
-}
-
-.steplist li span {
-  position: absolute;
-  top: 20px;
-  font-size: 14px;
-}
-
-.steplist li:first-child span {
-  left: -27px;
-}
-
-.steplist li:nth-child(2) span {
-  left: -15px;
-}
-.steplist li:last-child span {
-  left: -10px;
-}
-
-
 @media screen and (max-width: 1100px) {
   header {grid-template-columns: repeat(4, 1fr);}
   header > nav {
@@ -589,6 +601,12 @@ button.bg-secondary:hover {
   .footer-container {
     grid-column: 1 / span 12;
     margin: 0 3rem;
+  }
+  .step-group-one {
+    grid-column: 3 / span 4;
+  }
+  .step-group-two {
+    grid-column: 7 / span 4;
   }
 }
 
