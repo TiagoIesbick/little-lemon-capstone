@@ -3,11 +3,15 @@ import { useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { RadioGroup, RadioOption } from "./RadioGroup";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 
 /*
 Here I set up another endpoint to send data to the mock server.
 It receives the formData via POST request.
+Mock server capacity is 1000 calls per month.
+If the mock server's capacity is exceeded, application errors will occur.
 https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table
 */
 const urlPost = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table";
@@ -16,11 +20,10 @@ const urlPost = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/
 const BookingForm = (props) => {
     const navigate = useNavigate();
     const {isLoading, response, submit} = useSubmit();
-    const [guests, setGuests] = useState("2");
     const [selectedTable, setSelectedTable] = useState("inside");
     const [selectedNeeds, setSelectedNeeds] = useState("no");
-    const [occasion, setOccasion] = useState("");
-    const [formData, setFormData] = useState({guests: null, date: null, time: null});
+    const [formData, setFormData] = useState({date: null, time: null, tablePreference: null, acessilityNeeds: null});
+    const [pastDate, setPastDate] = useState(false);
     const stepOne = useRef(null);
     const stepTwo = useRef(null);
     const detailsButton = useRef(null);
@@ -34,13 +37,48 @@ const BookingForm = (props) => {
     const setServerResponse = props.setServerResponse;
 
 
+    const formik = useFormik({
+        initialValues: {
+            guests: "2",
+            occasion: '',
+            tablePreference: 'inside',
+            acessilityNeeds: 'no',
+            comment: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: ''
+        },
+        onSubmit: (values) => {
+            submit(urlPost, Object.assign(values, formData));
+            console.log("Form Submitted");
+            const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
+            props.dispatch({type: "SET_DATA", payload: {
+                time: timeList,
+                selected_time: timeList[0]
+            }});
+            formik.resetForm();
+            setSelectedTable("inside");
+            setSelectedNeeds("no");
+        },
+        validationSchema: Yup.object({
+            comment: Yup.string().min(3, "Must be 3 characters at minimum.").max(500, "Must be 500 characters at maximum."),
+            firstName: Yup.string().required("Required"),
+            lastName: Yup.string().required("Required"),
+            email: Yup.string().email("Invalid email address.").required("Required"),
+            phone: Yup.string().matches(/^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/, "Phone number must be in international format."),
+        }),
+    });
+
+
     useEffect(() => {
         setFormData({
-            guests: guests,
             date: props.availableTimes.date,
             time: props.availableTimes.selected_time,
+            tablePreference: selectedTable,
+            acessilityNeeds: selectedNeeds,
         });
-    }, [guests, props.availableTimes.date, props.availableTimes.selected_time]);
+    }, [props.availableTimes.date, props.availableTimes.selected_time, selectedTable, selectedNeeds]);
 
     useEffect(() => {
         if (response) {
@@ -100,10 +138,9 @@ const BookingForm = (props) => {
             stepTwo.current.style.borderTop = '2px solid #f4ce14';
             clientButton.current.style.color = '#495E57';
         };
-        console.log("click");
     };
-    
-    const handleSubmit = (e) => {
+
+    /*const handleSubmit = (e) => {
         e.preventDefault();
         submit(urlPost, formData);
         console.log("Form Submitted");
@@ -112,7 +149,7 @@ const BookingForm = (props) => {
             time: timeList,
             selected_time: timeList[0]
         }});
-    };
+    };*/
 
     return (
         <section className="section form-section">
@@ -132,15 +169,14 @@ const BookingForm = (props) => {
                     <span>Client</span>
                 </div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <fieldset id="reservationForm" ref={reservationFormRef}>
                     <div className="form-group">
                         <label htmlFor="number-of-guests">Number of Guests:</label>
                         <select
                             id="number-of-guests"
-                            value={guests}
-                            onChange={(e) => setGuests(e.target.value)}
                             className="form-control"
+                            {...formik.getFieldProps("guests")}
                         >
                             <option value="2">2 people</option>
                             <option value="3">3 people</option>
@@ -161,11 +197,13 @@ const BookingForm = (props) => {
                             value={props.availableTimes.date}
                             onChange={(e) => {
                                 if (e.target.value >= props.today) {
+                                    setPastDate(false);
                                     props.dispatch({type: "SET_DATA", payload: {date: e.target.value}});
-                                };
+                                } else {setPastDate(true)};
                             }}
                             className="form-control"
                         />
+                        {pastDate && <div className="error-message">Unable to choose past dates.</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="time">Available Times:</label>
@@ -180,12 +218,13 @@ const BookingForm = (props) => {
                         >
                             {options}
                         </select>
+                        {props.availableTimes.selected_time === undefined && <div className="error-message">No times available. Choose another date.</div>}
                     </div>
                 </fieldset>
                 <fieldset id="detailsForm" hidden ref={detailsFormRef}>
                     <div className="form-group">
                         <label htmlFor="occasion">Occasion:</label>
-                        <select onChange={(e) => setOccasion(e.target.value)} value={occasion} className="form-control">
+                        <select className="form-control" {...formik.getFieldProps("occasion")} >
                             <option value="" disabled hidden>Occasion</option>
                             <option value="birthday">Birthday</option>
                             <option value="engagement">Engagement</option>
@@ -205,35 +244,48 @@ const BookingForm = (props) => {
                             <RadioOption value="no">No</RadioOption>
                             <RadioOption value="yes">Yes</RadioOption>
                         </RadioGroup>
+                        { selectedNeeds === "yes" && !formik.values.comment && <div className="error-message">Provide more details in the comment field.</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="comment">Comment:</label>
-                        <textarea id="comment" name="comment" value="hello" rows={4} className="form-control" />
+                        <textarea id="comment" name="comment" rows={4} className="form-control" {...formik.getFieldProps("comment")} />
+                        <div className="error-message">{formik.errors.comment}</div>
                     </div>
                 </fieldset>
                 <fieldset id="clientForm" hidden ref={clientFormRef}>
                     <div className="form-group">
                         <label htmlFor="firstName">First Name:</label>
-                        <input type="text" autoComplete="given-name" id="firstName" required className="form-control" />
+                        <input type="text" autoComplete="given-name" id="firstName" required className="form-control" {...formik.getFieldProps("firstName")} />
+                        {formik.touched.firstName && formik.errors.firstName &&<div className="error-message">{formik.errors.firstName}</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName">Last Name:</label>
-                        <input type="text" autoComplete="family-name" id="lastName" required className="form-control" />
+                        <input type="text" autoComplete="family-name" id="lastName" required className="form-control" {...formik.getFieldProps("lastName")} />
+                        {formik.touched.lastName && formik.errors.lastName &&<div className="error-message">{formik.errors.lastName}</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">E-mail:</label>
-                        <input type="email" autoComplete="email" id="email" required className="form-control" />
+                        <input type="email" autoComplete="email" id="email" required className="form-control" {...formik.getFieldProps("email")} />
+                        {formik.touched.email && formik.errors.email &&<div className="error-message">{formik.errors.email}</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="phone">Phone:</label>
-                        <input type="tel" autoComplete="tel" id="phone" required className="form-control" />
+                        <input
+                            type="tel"
+                            autoComplete="tel"
+                            id="phone"
+                            className="form-control"
+                            pattern="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$"
+                            {...formik.getFieldProps("phone")}
+                        />
+                        <div className="error-message">{formik.errors.phone}</div>
                     </div>
                 </fieldset>
                 <div className="text-center">
                     <button
                         type="submit"
                         disabled={
-                            props.availableTimes.selected_time === undefined || isLoading
+                            /*props.availableTimes.selected_time === undefined ||*/ isLoading || !formik.isValid || !formik.touched.firstName
                         }
                         className="bg-secondary"
                         hidden

@@ -18,7 +18,7 @@ export default function Header() {
           }
           if (prevScrollPos > currentScrollPos) {
             headerElement.style.top = "0px";
-            headerElement.childNodes[1].childNodes[1].style.top = "75.59px";
+            headerElement.childNodes[1].childNodes[1].style.top = "74.667px";
           } else {
             headerElement.style.top = "-200px";
             headerElement.childNodes[1].childNodes[1].style.top = "-200px";

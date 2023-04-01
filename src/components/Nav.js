@@ -46,8 +46,8 @@ export default function Nav() {
                     <li><Link to="/about" className='underline'>About</Link></li>
                     <li><Link to="/menu" className='underline'>Menu</Link></li>
                     <li><Link to="/reservations" className='underline'>Reservations</Link></li>
-                    <li><a href="*" className='underline'>Order Online</a></li>
-                    <li><a href="*" className='underline'>Login</a></li>
+                    <li><Link to="/order-online" className='underline'>Order Online</Link></li>
+                    <li><Link to="/login" className='underline'>Login</Link></li>
                 </ul>
             </nav>
         </>

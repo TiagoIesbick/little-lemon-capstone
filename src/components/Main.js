@@ -1,9 +1,8 @@
 import Home from "./Home";
-import Highlights from "./Highlights";
-import Testimonials from "./Testimonials";
 import About from "./About";
 import BookingForm from "./BookingForm";
 import ConfirmedBooking from "./ConfirmedBooking";
+import Blank from "./Blank";
 import { Routes, Route } from "react-router-dom";
 import { useReducer, useEffect, useState } from "react";
 
@@ -14,12 +13,11 @@ const today = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart
 /*
 Here to establish an endpoint I've created my own mock server at Postman.
 It receives a date in string format as a query parameter.
+Mock server capacity is 1000 calls per month.
+If the mock server's capacity is exceeded, application errors will occur.
 'https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times?date="2023-03-23"'
 */
 const url = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times";
-
-
-
 
 const dataFormat = (data) => {
     return {
@@ -58,11 +56,13 @@ export default function Main() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/specials" element={<Highlights />} />
-                <Route path="/testimonials" element={<Testimonials />} />
+                <Route path="/menu" element={<Blank />} />
+                <Route path="/order-online" element={<Blank />} />
+                <Route path="/login" element={<Blank />} />
                 <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} setServerResponse={setServerResponse} loadingTimes={loadingTimes}/>} />
                 <Route path="/confirmed-reservation" element={<ConfirmedBooking serverResponse={serverResponse} />} />
             </Routes>
+            <div className="box-header-corrector"></div>
         </main>
     );
 };

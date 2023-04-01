@@ -17,6 +17,7 @@ header, footer {
 #root > header {
   position: fixed;
   width: 100%;
+  height: 75.667px;
   z-index: 2;
   transition-property: top;
   transition-duration: 0.3s;
@@ -34,7 +35,6 @@ main {
 footer {
   align-items: revert;
   position: relative;
-  top: 75.667px;
   grid-row: 3;
   border-top: 1px solid #f3f3f3;
 }
@@ -135,6 +135,18 @@ fieldset {
   min-width: fit-content;
   padding: 1em;
   border: none;
+}
+
+h1.text-primary {
+  display: flex;
+  height: calc(100% - 75.667px);
+  align-items: center;
+  justify-content: center;
+}
+
+.box-header-corrector {
+  height: 75.667px;
+  width: 100%;
 }
 
 .section {
@@ -548,6 +560,11 @@ button.bg-secondary:hover {
   color: transparent !important;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
 @media screen and (max-width: 1100px) {
   header {grid-template-columns: repeat(4, 1fr);}
   header > nav {
@@ -638,7 +655,7 @@ button.bg-secondary:hover {
   header > nav.responsive ul {
     position: fixed;
     left: 0;
-    top: 75.667px;
+    top: 74.667px;
     gap: 1rem;
     margin: 0;
     width: 9rem;

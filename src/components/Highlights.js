@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Link } from 'react-router-dom';
 
 const data = [
     {
@@ -48,7 +49,7 @@ export default function Highlights() {
         <section className="section highlights-section">
             <header>
                 <h2 className='text-primary'>Specials</h2>
-                <button className="bg-secondary">Online Menu</button>
+                <Link to="/menu"><button className="bg-secondary">Online Menu</button></Link>
             </header>
             <div className="articles-container">
                 {listItems}
