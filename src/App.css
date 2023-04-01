@@ -269,11 +269,11 @@ h1.text-primary {
 
 }
 
-.reservation-button, .details-button, .client-button {
+.reservation-button, .details-button, .client-button, .arrow-to-details, .arrow-to-client, .arrow-to-reservation {
   cursor: pointer;
 }
 
-.reservation-button:hover, .details-button:hover, .client-button:hover{
+.reservation-button:hover, .details-button:hover, .client-button:hover, .arrow-to-details:hover, .arrow-to-client:hover, .arrow-to-reservation:hover {
   scale: 1.1;
   transition: all .5s ease-in-out;
 }
@@ -395,6 +395,14 @@ textarea.form-control {
 
 .bg-secondary {
   background-color: #f4ce14;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
 }
 
 .text-primary {
@@ -551,6 +559,12 @@ button.bg-secondary:hover {
   transition: .3s;
 }
 
+button:disabled:hover {
+  background-color: #f4ce14;
+  transition: none;
+  cursor: default;
+}
+
 .btn-progress {
   position: relative;
   background-image: url("./assets/images/spinner-white.svg");
@@ -583,7 +597,7 @@ button.bg-secondary:hover {
   header nav a.icon {
     margin-left: 3rem;
   }
-  header > a {
+  header > a.cart-nav {
     grid-column: 4;
     margin-right: 3rem;
   }

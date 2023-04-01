@@ -15,9 +15,9 @@ Here to establish an endpoint I've created my own mock server at Postman.
 It receives a date in string format as a query parameter.
 Mock server capacity is 1000 calls per month.
 If the mock server's capacity is exceeded, application errors will occur.
-'https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times?date="2023-03-23"'
+'https://a84b5290-01dc-4f11-9bce-56f76278f9b5.mock.pstmn.io/api/available-times?date="2023-04-01"'
 */
-const url = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/available-times";
+const url = "https://a84b5290-01dc-4f11-9bce-56f76278f9b5.mock.pstmn.io/api/available-times";
 
 const dataFormat = (data) => {
     return {

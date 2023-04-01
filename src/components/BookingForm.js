@@ -12,9 +12,9 @@ Here I set up another endpoint to send data to the mock server.
 It receives the formData via POST request.
 Mock server capacity is 1000 calls per month.
 If the mock server's capacity is exceeded, application errors will occur.
-https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table
+https://a84b5290-01dc-4f11-9bce-56f76278f9b5.mock.pstmn.io/api/reserve-a-table
 */
-const urlPost = "https://f8ee9642-d2ea-440f-b7ca-4c15c4a2f0c1.mock.pstmn.io/api/reserve-a-table";
+const urlPost = "https://a84b5290-01dc-4f11-9bce-56f76278f9b5.mock.pstmn.io/api/reserve-a-table";
 
 
 const BookingForm = (props) => {
@@ -63,8 +63,8 @@ const BookingForm = (props) => {
         },
         validationSchema: Yup.object({
             comment: Yup.string().min(3, "Must be 3 characters at minimum.").max(500, "Must be 500 characters at maximum."),
-            firstName: Yup.string().required("Required"),
-            lastName: Yup.string().required("Required"),
+            firstName: Yup.string().required("Required").max(50, "Must be 50 characters at maximum."),
+            lastName: Yup.string().required("Required").max(50, "Must be 50 characters at maximum."),
             email: Yup.string().email("Invalid email address.").required("Required"),
             phone: Yup.string().matches(/^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/, "Phone number must be in international format."),
         }),
@@ -107,8 +107,14 @@ const BookingForm = (props) => {
     const options = props.availableTimes.time.map((item, index) => <option data-testid="select-option" value={item} key={index}>{item}</option>);
 
     const handleClick = (e) => {
+        console.log(e.target);
         const parentNode = e.target.parentNode;
-        if (parentNode.classList.contains('details-button') || parentNode.classList.contains("fa-utensils")) {
+        console.log(parentNode.parentNode);
+        if (parentNode.classList.contains('details-button') ||
+            parentNode.classList.contains("fa-utensils") ||
+            parentNode.parentNode.classList.contains("arrow-to-details") ||
+            parentNode.classList.contains("arrow-to-details")
+            ) {
             detailsFormRef.current.removeAttribute('hidden');
             reservationFormRef.current.setAttribute('hidden', 'true');
             clientFormRef.current.setAttribute('hidden', 'true');
@@ -118,7 +124,11 @@ const BookingForm = (props) => {
             stepTwo.current.style.borderTop = '1px dashed #d4d6d6';
             clientButton.current.style.color = '#8d8e8e';
         };
-        if (parentNode.classList.contains('reservation-button') || parentNode.classList.contains("fa-calendar-check")) {
+        if (parentNode.classList.contains('reservation-button') ||
+            parentNode.classList.contains("fa-calendar-check") ||
+            parentNode.parentNode.classList.contains("arrow-to-reservation") ||
+            parentNode.classList.contains("arrow-to-reservation")
+            ) {
             reservationFormRef.current.removeAttribute('hidden');
             detailsFormRef.current.setAttribute('hidden', 'true');
             clientFormRef.current.setAttribute('hidden', 'true');
@@ -128,7 +138,11 @@ const BookingForm = (props) => {
             stepTwo.current.style.borderTop = '1px dashed #d4d6d6';
             clientButton.current.style.color = '#8d8e8e';
         };
-        if (parentNode.classList.contains('client-button') || parentNode.classList.contains("fa-user")) {
+        if (parentNode.classList.contains('client-button') ||
+            parentNode.classList.contains("fa-user") ||
+            parentNode.parentNode.classList.contains("arrow-to-client") ||
+            parentNode.classList.contains("arrow-to-client")
+            ) {
             clientFormRef.current.removeAttribute('hidden');
             submitButtonRef.current.removeAttribute('hidden');
             reservationFormRef.current.setAttribute('hidden', 'true');
@@ -139,17 +153,6 @@ const BookingForm = (props) => {
             clientButton.current.style.color = '#495E57';
         };
     };
-
-    /*const handleSubmit = (e) => {
-        e.preventDefault();
-        submit(urlPost, formData);
-        console.log("Form Submitted");
-        const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
-        props.dispatch({type: "SET_DATA", payload: {
-            time: timeList,
-            selected_time: timeList[0]
-        }});
-    };*/
 
     return (
         <section className="section form-section">
@@ -199,7 +202,10 @@ const BookingForm = (props) => {
                                 if (e.target.value >= props.today) {
                                     setPastDate(false);
                                     props.dispatch({type: "SET_DATA", payload: {date: e.target.value}});
-                                } else {setPastDate(true)};
+                                } else {
+                                    setPastDate(true);
+                                    setTimeout(() => setPastDate(false), 2500);
+                                };
                             }}
                             className="form-control"
                         />
@@ -219,6 +225,9 @@ const BookingForm = (props) => {
                             {options}
                         </select>
                         {props.availableTimes.selected_time === undefined && <div className="error-message">No times available. Choose another date.</div>}
+                    </div>
+                    <div className="float-right text-primary arrow-to-details" onClick={handleClick}>
+                        <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
                     </div>
                 </fieldset>
                 <fieldset id="detailsForm" hidden ref={detailsFormRef}>
@@ -251,16 +260,22 @@ const BookingForm = (props) => {
                         <textarea id="comment" name="comment" rows={4} className="form-control" {...formik.getFieldProps("comment")} />
                         <div className="error-message">{formik.errors.comment}</div>
                     </div>
+                    <div className="float-left text-primary arrow-to-reservation" onClick={handleClick}>
+                        <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
+                    </div>
+                    <div className="float-right text-primary arrow-to-client" onClick={handleClick}>
+                        <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
+                    </div>
                 </fieldset>
                 <fieldset id="clientForm" hidden ref={clientFormRef}>
                     <div className="form-group">
                         <label htmlFor="firstName">First Name:</label>
-                        <input type="text" autoComplete="given-name" id="firstName" required className="form-control" {...formik.getFieldProps("firstName")} />
+                        <input type="text" autoComplete="given-name" id="firstName" maxLength="50" required className="form-control" {...formik.getFieldProps("firstName")} />
                         {formik.touched.firstName && formik.errors.firstName &&<div className="error-message">{formik.errors.firstName}</div>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="lastName">Last Name:</label>
-                        <input type="text" autoComplete="family-name" id="lastName" required className="form-control" {...formik.getFieldProps("lastName")} />
+                        <input type="text" autoComplete="family-name" id="lastName" maxLength="50" required className="form-control" {...formik.getFieldProps("lastName")} />
                         {formik.touched.lastName && formik.errors.lastName &&<div className="error-message">{formik.errors.lastName}</div>}
                     </div>
                     <div className="form-group">
@@ -280,12 +295,15 @@ const BookingForm = (props) => {
                         />
                         <div className="error-message">{formik.errors.phone}</div>
                     </div>
+                    <div className="float-left text-primary arrow-to-details" onClick={handleClick}>
+                        <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
+                    </div>
                 </fieldset>
                 <div className="text-center">
                     <button
                         type="submit"
                         disabled={
-                            /*props.availableTimes.selected_time === undefined ||*/ isLoading || !formik.isValid || !formik.touched.firstName
+                            props.availableTimes.selected_time === undefined || isLoading || !formik.isValid || formik.values.firstName === ''
                         }
                         className="bg-secondary"
                         hidden

@@ -36,7 +36,7 @@ export default function Header() {
         <header ref={headerRef} >
             <img src={logo} alt="logo" className='logo'/>
             <Nav />
-            <a href="/" role="button" onClick={(e) => e.preventDefault()}><FontAwesomeIcon icon={solid('cart-plus')} /></a>
+            <a href="/" className='cart-nav' role="button" onClick={(e) => e.preventDefault()}><FontAwesomeIcon icon={solid('cart-plus')} /></a>
         </header>
     );
 };
