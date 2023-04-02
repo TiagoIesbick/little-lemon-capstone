@@ -12,7 +12,7 @@ export default function HeroSection() {
                 <Link to="/reservations"><button className='bg-secondary'>Reserve a Table</button></Link>
             </div>
             <div className='hero-section-image'>
-                <div className='hero-box-image'></div>
+                <div className='hero-box-image' role="img"></div>
             </div>
         </section>
     );

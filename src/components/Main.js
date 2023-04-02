@@ -62,7 +62,7 @@ export default function Main() {
                 <Route path="/reservations" element={<BookingForm availableTimes={state} dispatch={dispatch} today={today} setServerResponse={setServerResponse} loadingTimes={loadingTimes}/>} />
                 <Route path="/confirmed-reservation" element={<ConfirmedBooking serverResponse={serverResponse} />} />
             </Routes>
-            <div className="box-header-corrector"></div>
+            <div className="box-header-corrector" aria-hidden="true"></div>
         </main>
     );
 };

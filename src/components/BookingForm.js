@@ -42,7 +42,7 @@ const BookingForm = (props) => {
             guests: "2",
             occasion: '',
             tablePreference: 'inside',
-            acessilityNeeds: 'no',
+            accessibilityNeeds: 'no',
             comment: '',
             firstName: '',
             lastName: '',
@@ -50,16 +50,8 @@ const BookingForm = (props) => {
             phone: ''
         },
         onSubmit: (values) => {
+            console.log(Object.assign(values, formData));
             submit(urlPost, Object.assign(values, formData));
-            console.log("Form Submitted");
-            const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
-            props.dispatch({type: "SET_DATA", payload: {
-                time: timeList,
-                selected_time: timeList[0]
-            }});
-            formik.resetForm();
-            setSelectedTable("inside");
-            setSelectedNeeds("no");
         },
         validationSchema: Yup.object({
             comment: Yup.string().min(3, "Must be 3 characters at minimum.").max(500, "Must be 500 characters at maximum."),
@@ -82,11 +74,21 @@ const BookingForm = (props) => {
 
     useEffect(() => {
         if (response) {
-            console.log(response);
             setServerResponse(response);
-            navigate("/confirmed-reservation");
+            if (response.hasOwnProperty('success')) {
+                console.log("Form Submitted");
+                const timeList = props.availableTimes.time.filter(item => item !== props.availableTimes.selected_time);
+                props.dispatch({type: "SET_DATA", payload: {
+                    time: timeList,
+                    selected_time: timeList[0]
+                }});
+                formik.resetForm();
+                setSelectedTable("inside");
+                setSelectedNeeds("no");
+                navigate("/confirmed-reservation");
+            };
         };
-    }, [response, navigate, setServerResponse]);
+    }, [response, navigate, setServerResponse, props, formik]);
 
     useEffect(() => {
         if (loadingTimes) {
@@ -107,9 +109,7 @@ const BookingForm = (props) => {
     const options = props.availableTimes.time.map((item, index) => <option data-testid="select-option" value={item} key={index}>{item}</option>);
 
     const handleClick = (e) => {
-        console.log(e.target);
         const parentNode = e.target.parentNode;
-        console.log(parentNode.parentNode);
         if (parentNode.classList.contains('details-button') ||
             parentNode.classList.contains("fa-utensils") ||
             parentNode.parentNode.classList.contains("arrow-to-details") ||
@@ -173,6 +173,13 @@ const BookingForm = (props) => {
                 </div>
             </div>
             <form onSubmit={formik.handleSubmit}>
+                { response !== null && response.hasOwnProperty('error') && (
+                <div className="error-message text-center">
+                    Sorry, something went wrong 😟<br/><br/>
+                    Error: {response.error.message}<br/><br/>
+                    Please try again later 🤗
+                </div>
+                )}
                 <fieldset id="reservationForm" ref={reservationFormRef}>
                     <div className="form-group">
                         <label htmlFor="number-of-guests">Number of Guests:</label>
@@ -226,7 +233,7 @@ const BookingForm = (props) => {
                         </select>
                         {props.availableTimes.selected_time === undefined && <div className="error-message">No times available. Choose another date.</div>}
                     </div>
-                    <div className="float-right text-primary arrow-to-details" onClick={handleClick}>
+                    <div className="float-right text-primary arrow-to-details" role="button" onClick={handleClick}>
                         <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
                     </div>
                 </fieldset>
@@ -248,7 +255,7 @@ const BookingForm = (props) => {
                         </RadioGroup>
                     </div>
                     <div className="form-group">
-                        <label>Acessibility Needs:</label>
+                        <label>Accessibility Needs:</label>
                         <RadioGroup onChange={setSelectedNeeds} selected={selectedNeeds}>
                             <RadioOption value="no">No</RadioOption>
                             <RadioOption value="yes">Yes</RadioOption>
@@ -260,10 +267,10 @@ const BookingForm = (props) => {
                         <textarea id="comment" name="comment" rows={4} className="form-control" {...formik.getFieldProps("comment")} />
                         <div className="error-message">{formik.errors.comment}</div>
                     </div>
-                    <div className="float-left text-primary arrow-to-reservation" onClick={handleClick}>
+                    <div className="float-left text-primary arrow-to-reservation" role="button" onClick={handleClick}>
                         <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
                     </div>
-                    <div className="float-right text-primary arrow-to-client" onClick={handleClick}>
+                    <div className="float-right text-primary arrow-to-client" role="button" onClick={handleClick}>
                         <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
                     </div>
                 </fieldset>
@@ -295,7 +302,7 @@ const BookingForm = (props) => {
                         />
                         <div className="error-message">{formik.errors.phone}</div>
                     </div>
-                    <div className="float-left text-primary arrow-to-details" onClick={handleClick}>
+                    <div className="float-left text-primary arrow-to-details" role="button" onClick={handleClick}>
                         <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
                     </div>
                 </fieldset>

@@ -45,6 +45,9 @@ footer span {
 
 header img {
   width: 10rem;
+}
+
+header a.logo-header {
   grid-column: 3 / span 2;
   margin: 1rem 0 1rem 0;
 }
@@ -53,7 +56,7 @@ header > nav {
   grid-column: 5/ span 5;
 }
 
-header > a {
+header > a.cart-nav {
   grid-column: 10;
   text-align: right;
 }
@@ -343,14 +346,6 @@ h1.text-primary {
   color: #495E57;
 
 }
-/*
-font-family: Inter;
-font-size: 15px;
-font-weight: 500;
-line-height: 18px;
-letter-spacing: 0em;
-text-align: left;*/
-
 
 .form-control {
   width: 100%;
@@ -387,6 +382,46 @@ textarea.form-control {
 
 .RadioOption label {
   font-weight: 500;
+}
+
+.confirmed-reservation-section {
+  height: calc(100% - 75.667px);
+}
+
+.confirmed-reservation-container {
+  grid-column: 3 / span 8;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.bg-success-gif {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  opacity: 0.6;
+  object-fit: contain;
+}
+
+.success-info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.success-info p {
+  text-align: center;
+  color: #495E57;
+  font-weight: 600;
+}
+
+.success-info h1 {
+  text-align: center;
+  color: #f4ce14;
+  margin: 1rem 0;
 }
 
 .bg-primary {
@@ -585,7 +620,7 @@ button:disabled:hover {
     grid-column: 1;
     grid-row: 1;
   }
-  header > img {
+  header a.logo-header {
     grid-column: 2 / span 2;
     margin-left: auto;
     margin-right: auto;
