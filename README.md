@@ -1,71 +1,32 @@
-# Getting Started with Create React App
+# Front-End Developer Capstone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Challenge proposed in the Front-End Developer Capstone course by Meta.
 
-## Available Scripts
+# Scenario
+First, let's list the Little Lemon owners’ (your client's) requirements:
 
-In the project directory, you can run:
+- About Little Lemon
 
-### `npm start`
+- Highlights and specials
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Descriptions and photos of dishes
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Navigation bar
 
-### `npm test`
+- Footer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Testimonials
 
-### `npm run build`
+After that.  The task is to improve the app by allowing the user to enter data into the form so that they can complete a table reservation.  Thus, you need to build a Booking Form component that has at least the following entries (form items):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Date
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Time
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Number of guests
 
-### `npm run eject`
+Occasion (Birthday, Anniversary)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Submit reservation button (to submit the form)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# little-lemon-capstone
+To do this, you need to implement a form in a controlled component named BookingForm.
