@@ -170,6 +170,8 @@ h1.text-primary {
 .form-section {
   grid-template-rows: 2rem 1fr;
   padding: 5rem 0;
+  height: calc(100% - 75.667px);
+  align-items: center;
 }
 
 .hero-section h1 {

@@ -41,8 +41,6 @@ const BookingForm = (props) => {
         initialValues: {
             guests: "2",
             occasion: '',
-            tablePreference: 'inside',
-            accessibilityNeeds: 'no',
             comment: '',
             firstName: '',
             lastName: '',
@@ -157,17 +155,17 @@ const BookingForm = (props) => {
     return (
         <section className="section form-section">
             <div className="step-group-one" ref={stepOne}>
-                <div className="reservation-button" role="button" onClick={handleClick}>
+                <div className="reservation-button" aria-label="form-first-part" role="button" onClick={handleClick}>
                     <FontAwesomeIcon  icon={solid("calendar-check")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Reservation</span>
                 </div>
-                <div className="details-button" role="button" onClick={handleClick} ref={detailsButton}>
+                <div className="details-button" aria-label="form-second-part" role="button" onClick={handleClick} ref={detailsButton}>
                     <FontAwesomeIcon icon={solid("utensils")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Details</span>
                 </div>
             </div>
             <div className="step-group-two" ref={stepTwo}>
-                <div className="client-button" role="button" onClick={handleClick} ref={clientButton}>
+                <div className="client-button" aria-label="form-third-part" role="button" onClick={handleClick} ref={clientButton}>
                     <FontAwesomeIcon icon={solid("user")} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Client</span>
                 </div>

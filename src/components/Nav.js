@@ -38,7 +38,7 @@ export default function Nav() {
     return (
         <>
             <nav>
-                <a href="*" className='icon' role="button" onClick={clickHandler}>
+                <a href="*" className='icon' aria-label="sidebar" role="button" onClick={clickHandler}>
                     <FontAwesomeIcon icon={icon} />
                 </a>
                 <ul>
