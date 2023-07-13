@@ -1,32 +1,14 @@
-# Front-End Developer Capstone
+<div align="center">
 
-Challenge proposed in the Front-End Developer Capstone course by Meta.
+<img src="https://www.alura.com.br/artigos/assets/react-conheca-novidades-versao-18-react/react-conheca-novidades-versao-18-react.png" alt="React Js logo" width=100px>
 
-# Scenario
-First, let's list the Little Lemon owners’ (your client's) requirements:
+# Reserve a table on the Little Lemon Website 
 
-- About Little Lemon
+<h3>Desktop</h3>
 
-- Highlights and specials
+![Little Lemon _ Mediterranean Restaurant (2)](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/1d833506-21c3-4ae2-9160-220c81a500f2) 
 
-- Descriptions and photos of dishes
+<h3>Mobile</h3>
 
-- Navigation bar
-
-- Footer
-
-- Testimonials
-
-After that.  The task is to improve the app by allowing the user to enter data into the form so that they can complete a table reservation.  Thus, you need to build a Booking Form component that has at least the following entries (form items):
-
-- Date
-
-- Time
-
-- Number of guests
-
-- Occasion (Birthday, Anniversary)
-
-- Submit reservation button (to submit the form)
-
-To do this, you need to implement a form in a controlled component named BookingForm.
+![Little Lemon _ Mediterranean Restaurant (3)](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/cd0757ab-0248-4636-bd19-b7edf92f04cb)
+</div>
