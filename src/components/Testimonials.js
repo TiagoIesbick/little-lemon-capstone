@@ -13,7 +13,7 @@ const reviews = [
         id: "2",
         first_name: "Adrian",
         rating: "5",
-        image: "https://cdn-bmalj.nitrocdn.com/uirOOtSrYrqqUksKHkiSCjZGZlPeXsmk/assets/static/optimized/rev-939cb5a/images/things-to-do-in-athen-greece-food.jpg",
+        image: "https://www.ezcater.com/lunchrush/wp-content/uploads/sites/2/2021/07/Zoes-Kitchen-Mediterranean-Chicken-Plate-1536x1536.jpg.webp",
         review: "Delicius food",
     },
     {
