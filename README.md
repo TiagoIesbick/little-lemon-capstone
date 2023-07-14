@@ -6,9 +6,11 @@
 
 <h3>Desktop</h3>
 
-![Little Lemon _ Mediterranean Restaurant (2)](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/1d833506-21c3-4ae2-9160-220c81a500f2) 
+![Little Lemon _ Mediterranean Restaurant](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/0e1375f3-9933-4ac5-af2a-6e70fcf79396)
+
 
 <h3>Mobile</h3>
 
-![Little Lemon _ Mediterranean Restaurant (3)](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/cd0757ab-0248-4636-bd19-b7edf92f04cb)
+![Little Lemon _ Mediterranean Restaurant (1)](https://github.com/TiagoIesbick/little-lemon-capstone/assets/92130435/590adbdd-8345-4546-88b0-63395e6cec80)
+
 </div>
