@@ -1,6 +1,8 @@
 <div align="center">
 
 <img src="https://www.alura.com.br/artigos/assets/react-conheca-novidades-versao-18-react/react-conheca-novidades-versao-18-react.png" alt="React Js logo" width=100px>
+<img src="https://logowik.com/content/uploads/images/postman-api-platform6643.logowik.com.webp" alt="Postman logo" width=80px>
+<img src="https://user-images.githubusercontent.com/4060187/61057426-4e5a4600-a3c3-11e9-9114-630743e05814.png" alt="Postman logo" width=60px>
 
 # Reserve a table on the Little Lemon Website 
 
