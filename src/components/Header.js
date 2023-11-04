@@ -17,7 +17,7 @@ export default function Header() {
           if (!headerElement) {
             return;
           }
-          if (prevScrollPos > currentScrollPos) {
+          if (prevScrollPos > currentScrollPos || currentScrollPos < 74.667) {
             headerElement.style.top = "0px";
             headerElement.childNodes[1].childNodes[1].style.top = "74.667px";
           } else {
