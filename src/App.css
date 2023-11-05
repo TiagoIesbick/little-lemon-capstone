@@ -360,6 +360,7 @@ h1.text-primary {
   color: #495E57;
   -webkit-appearance: none;
   appearance: none;
+  text-align: left;
 }
 
 textarea.form-control {
