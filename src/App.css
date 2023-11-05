@@ -362,7 +362,7 @@ h1.text-primary {
 }
 
 #date {
-  width: 100%;
+  width: -webkit-fill-available;
 }
 
 textarea.form-control {
