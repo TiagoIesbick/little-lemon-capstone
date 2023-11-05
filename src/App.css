@@ -362,6 +362,10 @@ h1.text-primary {
   appearance: none;
 }
 
+input::-webkit-date-and-time-value {
+  text-align: left;
+}
+
 textarea.form-control {
   height: revert;
   font-family: Karla;
