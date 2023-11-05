@@ -361,6 +361,10 @@ h1.text-primary {
   color: #495E57;
 }
 
+#date {
+  width: 100%;
+}
+
 textarea.form-control {
   height: revert;
   font-family: Karla;
