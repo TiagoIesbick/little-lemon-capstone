@@ -135,7 +135,6 @@ img.logo {
 fieldset {
   width: 100%;
   max-width: 400px;
-  min-width: fit-content;
   padding: 1em;
   border: none;
 }
@@ -359,10 +358,6 @@ h1.text-primary {
   height: 40px;
   padding: 10px;
   color: #495E57;
-}
-
-#date {
-  width: -webkit-fill-available;
 }
 
 textarea.form-control {
