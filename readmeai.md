@@ -37,7 +37,7 @@
     - [ 🧪 Tests](#-tests)
 - [ 🛣 Roadmap](#-roadmap)
 - [ 🤝 Contributing](#-contributing)
-- [ 📄 License](#-license)
+- [ 📄 Observações](#-observacoes)
 - [ 👏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -256,7 +256,7 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 
 ---
 
-## 📄 License
+## 📄 Observações
 
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
