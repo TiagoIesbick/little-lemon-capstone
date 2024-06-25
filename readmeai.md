@@ -37,7 +37,7 @@
     - [ 🧪 Tests](#-tests)
 - [ 🛣 Roadmap](#-roadmap)
 - [ 🤝 Contributing](#-contributing)
-- [ 📄 Observações](#-observacoes)
+- [ 📄 Observações](#-observações)
 - [ 👏 Acknowledgments](#-acknowledgments)
 
 ---
