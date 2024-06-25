@@ -30,7 +30,7 @@
 - [ 📍 Overview](#-overview)
 - [ 📦 Features](#-features)
 - [ 📂 repository Structure](#-repository-structure)
-- [ ⚙️ Modules](#-modules)
+- [ ⚙️ Modules](#%EF%B8%8F-modules)
 - [ 🚀 Getting Started](#-getting-started)
     - [ 🔧 Installation](#-installation)
     - [ 🤖 Running little-lemon-capstone](#-running-little-lemon-capstone)
