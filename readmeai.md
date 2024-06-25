@@ -26,19 +26,19 @@
 ---
 
 ## 📖 Table of Contents
-- [📖 Table of Contents](#-table-of-contents)
+- [ 📖 Table of Contents](#-table-of-contents)
 - [ 📍 Overview](#-overview)
-- [📦 Features](#-features)
-- [📂 repository Structure](#-repository-structure)
-- [⚙️ Modules](#modules)
-- [🚀 Getting Started](#-getting-started)
-    - [🔧 Installation](#-installation)
-    - [🤖 Running little-lemon-capstone](#-running-little-lemon-capstone)
-    - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
+- [ 📦 Features](#-features)
+- [ 📂 repository Structure](#-repository-structure)
+- [ ⚙️ Modules](#modules)
+- [ 🚀 Getting Started](#-getting-started)
+    - [ 🔧 Installation](#-installation)
+    - [ 🤖 Running little-lemon-capstone](#-running-little-lemon-capstone)
+    - [ 🧪 Tests](#-tests)
+- [ 🛣 Roadmap](#-roadmap)
+- [ 🤝 Contributing](#-contributing)
+- [ 📄 License](#-license)
+- [ 👏 Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -267,7 +267,7 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**Return**](#Top)
+[**Return**](#-table-of-contents)
 
 ---
 
