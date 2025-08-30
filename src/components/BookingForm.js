@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { faCalendarCheck, faUtensils, faUser, faCircleArrowRight, faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { RadioGroup, RadioOption } from "./RadioGroup";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
@@ -156,17 +156,17 @@ const BookingForm = (props) => {
         <section className="section form-section">
             <div className="step-group-one" ref={stepOne}>
                 <div className="reservation-button" aria-label="form-first-part" role="button" onClick={handleClick}>
-                    <FontAwesomeIcon  icon={solid("calendar-check")} size="lg" style={{backgroundColor: "white"}}/>
+                    <FontAwesomeIcon  icon={faCalendarCheck} size="lg" style={{backgroundColor: "white"}}/>
                     <span>Reservation</span>
                 </div>
                 <div className="details-button" aria-label="form-second-part" role="button" onClick={handleClick} ref={detailsButton}>
-                    <FontAwesomeIcon icon={solid("utensils")} size="lg" style={{backgroundColor: "white"}}/>
+                    <FontAwesomeIcon icon={faUtensils}  size="lg" style={{backgroundColor: "white"}}/>
                     <span>Details</span>
                 </div>
             </div>
             <div className="step-group-two" ref={stepTwo}>
                 <div className="client-button" aria-label="form-third-part" role="button" onClick={handleClick} ref={clientButton}>
-                    <FontAwesomeIcon icon={solid("user")} size="lg" style={{backgroundColor: "white"}}/>
+                    <FontAwesomeIcon icon={faUser}  size="lg" style={{backgroundColor: "white"}}/>
                     <span>Client</span>
                 </div>
             </div>
@@ -232,7 +232,7 @@ const BookingForm = (props) => {
                         {props.availableTimes.selected_time === undefined && <div className="error-message">No times available. Choose another date.</div>}
                     </div>
                     <div className="float-right text-primary arrow-to-details" role="button" onClick={handleClick}>
-                        <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
+                        <FontAwesomeIcon icon={faCircleArrowRight}  size="lg" />
                     </div>
                 </fieldset>
                 <fieldset id="detailsForm" hidden ref={detailsFormRef}>
@@ -266,10 +266,10 @@ const BookingForm = (props) => {
                         <div className="error-message">{formik.errors.comment}</div>
                     </div>
                     <div className="float-left text-primary arrow-to-reservation" role="button" onClick={handleClick}>
-                        <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
+                        <FontAwesomeIcon icon={faCircleArrowLeft}  size="lg" />
                     </div>
                     <div className="float-right text-primary arrow-to-client" role="button" onClick={handleClick}>
-                        <FontAwesomeIcon icon={solid("circle-arrow-right")} size="lg" />
+                        <FontAwesomeIcon icon={faCircleArrowRight}  size="lg" />
                     </div>
                 </fieldset>
                 <fieldset id="clientForm" hidden ref={clientFormRef}>
@@ -301,7 +301,7 @@ const BookingForm = (props) => {
                         <div className="error-message">{formik.errors.phone}</div>
                     </div>
                     <div className="float-left text-primary arrow-to-details" role="button" onClick={handleClick}>
-                        <FontAwesomeIcon icon={solid("circle-arrow-left")} size="lg" />
+                        <FontAwesomeIcon icon={faCircleArrowLeft}  size="lg" />
                     </div>
                 </fieldset>
                 <div className="text-center">

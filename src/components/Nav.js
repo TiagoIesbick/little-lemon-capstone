@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
 export default function Nav() {
-    const [ icon, setIcon ] = useState(solid('bars'));
+    const [ icon, setIcon ] = useState(faBars);
     let location = useLocation();
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function Nav() {
         let x = document.getElementsByTagName('nav')[0];
         if (x.classList.length > 0) {
             x.removeAttribute("class");
-            setIcon(solid('bars'));
+            setIcon(faBars);
         };
     };
 
@@ -28,10 +28,10 @@ export default function Nav() {
         } else {
             x.removeAttribute("class");
         };
-        if (icon === solid('bars')) {
-            setIcon(solid('xmark'));
+        if (icon === faBars) {
+            setIcon(faXmark);
         } else {
-            setIcon(solid('bars'));
+            setIcon(faBars);
         };
     };
 

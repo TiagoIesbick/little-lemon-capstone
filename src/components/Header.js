@@ -2,7 +2,7 @@ import logo from '../assets/images/logo.png';
 import Nav from './Nav';
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -37,7 +37,7 @@ export default function Header() {
         <header ref={headerRef} >
             <Link to="/" className='logo-header'><img src={logo} alt="logo" className='logo'/></Link>
             <Nav />
-            <a href="/" className='cart-nav' role="button" onClick={(e) => e.preventDefault()}><FontAwesomeIcon icon={solid('cart-plus')} /></a>
+            <a href="/" className='cart-nav' role="button" onClick={(e) => e.preventDefault()}><FontAwesomeIcon icon={faCartPlus} /></a>
         </header>
     );
 };

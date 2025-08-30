@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 const reviews = [
     {
@@ -36,10 +37,10 @@ export default function Testimonials() {
     const reviewsList = reviews.map(review => {
         let stars = [];
         for (let i = 0; i < Number(review.rating); i++) {
-            stars.push(<FontAwesomeIcon icon={solid('star')} key={i} className="text-secondary"/>);
+            stars.push(<FontAwesomeIcon icon={faStar} key={i} className="text-secondary"/>);
         };
         for (let j = Number(review.rating); j < 5; j++) {
-            stars.push(<FontAwesomeIcon icon={regular('star')} key={j} className="text-secondary"/>);
+            stars.push(<FontAwesomeIcon icon={faStarRegular} key={j} className="text-secondary"/>);
         };
         return (
             <article key={review.id} className="article-box-testimonials">

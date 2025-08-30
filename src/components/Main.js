@@ -39,12 +39,24 @@ export default function Main() {
 
     const fetchData = async () => {
         setLoadingTimes(true);
-        await fetch(`${url}?date="${state.date}"`)
-            .then(response => response.json())
-            .then(data => {
+        try {
+            const response = await fetch(`${url}?date="${state.date}"`);
+            const data = await response.json();
+
+            if (data.error) {
+                console.warn("Server error:", data.error.message);
+                // Optionally set a fallback or empty state
+                dispatch({type: 'SET_DATA', payload: {date: state.date, time: [], selected_time: undefined}});
+            } else {
                 dispatch({type: 'SET_DATA', payload: dataFormat(data)});
-                setLoadingTimes(false);
-            });
+            }
+        } catch (err) {
+            console.error("Fetch failed:", err);
+            // Handle network errors
+            dispatch({type: 'SET_DATA', payload: {date: state.date, time: [], selected_time: undefined}});
+        } finally {
+            setLoadingTimes(false);
+        }
     };
 
     useEffect(() => {

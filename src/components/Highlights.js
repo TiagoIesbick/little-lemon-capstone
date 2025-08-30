@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const data = [
@@ -38,7 +38,7 @@ export default function Highlights() {
                     </div>
                     <p className='item-description'>{item.description}</p>
                     <p className='item-delivery'>
-                        Order a delivery <FontAwesomeIcon icon={solid('motorcycle')} />
+                        Order a delivery <FontAwesomeIcon icon={faMotorcycle} />
                     </p>
                 </div>
             </article>
